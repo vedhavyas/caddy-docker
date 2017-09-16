@@ -16,5 +16,5 @@ deployment:
     commands:
       - tag=$CIRCLE_BRANCH-`git rev-parse --short HEAD`
       - docker build -t vedhavyas/caddy:$tag .
-      - docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push vedhavyas/caddy:latest
