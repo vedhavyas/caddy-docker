@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   override:
-    - docker run -v `pwd`:$CIRCLE_PROJECT_REPONAME -w $CIRCLE_PROJECT_REPONAME golang:latest bash -c "cd $CIRCLE_PROJECT_REPONAME; ./build_caddy.sh"
+    - docker run -v `pwd`:/$CIRCLE_PROJECT_REPONAME -w /$CIRCLE_PROJECT_REPONAME golang:latest bash -c "cd /$CIRCLE_PROJECT_REPONAME; ./build_caddy.sh"
 
 test:
   override:
