@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER Vedhavyas <vedhavyas.singareddi@gmail.com>
+LABEL maintainer="Vedhavyas <vedhavyas.singareddi@gmail.com>"
 
 ADD ./caddy /
 
@@ -12,4 +12,4 @@ USER nobody
 
 ENTRYPOINT ["/caddy"]
 
-EXPOSE 80 443 2015
+EXPOSE 80 443
