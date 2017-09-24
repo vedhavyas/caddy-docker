@@ -1,5 +1,5 @@
 # caddy-docker
-Docker image for Caddy built from source
+Docker image of Caddy built from source
 
 ## Run
 ```
