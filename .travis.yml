@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker run -v `pwd`:/caddy-docker -w /caddy-docker golang:latest bash -c "cd /caddy-docker; ./build_caddy.sh"
+
+deploy:
+if: (NOT type IN (pull_request)) AND (branch = master)
+  - tag=$TRAVIS_BRANCH-`git rev-parse --short HEAD`
+  - docker build -t vedhavyas/caddy:$tag .
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push vedhavyas/caddy:$tag
+  - docker push vedhavyas/caddy:latest
