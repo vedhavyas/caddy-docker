@@ -14,7 +14,8 @@ jobs:
       if: (NOT type IN (pull_request)) AND (branch = master)
       script:
         - tag=$TRAVIS_BRANCH-`git rev-parse --short HEAD`
-        - docker build -t vedhavyas/caddy:$tag .
         - docker login -u $DOCKER_USER -p $DOCKER_PASS
+        - docker build -t vedhavyas/caddy:latest .
+        - docker tag vedhavyas/caddy:latest vedhavyas/caddy:$tag
         - docker push vedhavyas/caddy:$tag
         - docker push vedhavyas/caddy:latest
