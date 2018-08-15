@@ -8,9 +8,13 @@ services:
 install:
   - docker run -v `pwd`:/caddy-docker -w /caddy-docker golang:latest bash -c "cd /caddy-docker; ./build_caddy.sh"
 
-deploy:
-  - tag=$TRAVIS_BRANCH-`git rev-parse --short HEAD`
-  - docker build -t vedhavyas/caddy:$tag .
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push vedhavyas/caddy:$tag
-  - docker push vedhavyas/caddy:latest
+jobs:
+  include:
+    - stage: test
+      if: (NOT type IN (pull_request)) AND (branch = master)
+      script:
+        - tag=$TRAVIS_BRANCH-`git rev-parse --short HEAD`
+        - docker build -t vedhavyas/caddy:$tag .
+        - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+        - docker push vedhavyas/caddy:$tag
+        - docker push vedhavyas/caddy:latest
